@@ -12,6 +12,7 @@ namespace Torneo.App.Consola
                 Console.WriteLine("1. Insertar municipio");
                 Console.WriteLine("2. Insertar director tecnico");
                 Console.WriteLine("0. Salir");
+                Console.WriteLine("Seleccione la opcion deseada");
                 opcion = Int32.Parse(Console.ReadLine());
                 switch (opcion)
                 {
