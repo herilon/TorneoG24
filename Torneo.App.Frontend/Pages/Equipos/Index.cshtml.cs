@@ -16,6 +16,7 @@ namespace Torneo.App.Frontend.Pages.Equipos
         public IEnumerable<Equipo> equipos { get; set; }
         public SelectList MunicipioOptions { get; set; }
         public int MunicipioSelected { get; set; }
+        public string BusquedaActual { get; set; }
 
         public IndexModel(IRepositorioEquipo repoEquipo, IRepositorioMunicipio repoMunicipio)
         {
@@ -28,6 +29,7 @@ namespace Torneo.App.Frontend.Pages.Equipos
             equipos = _repoEquipo.GetAllEquipos();
             MunicipioOptions = new SelectList(_repoMunicipio.GetAllMunicipios(), "Id", "Nombre");
             MunicipioSelected = -1;
+            BusquedaActual = "";
         }
 
         public void OnPostFiltro(int idMunicipio)
@@ -42,6 +44,22 @@ namespace Torneo.App.Frontend.Pages.Equipos
             {
                 equipos = _repoEquipo.GetAllEquipos();
                 MunicipioSelected = -1;
+            }
+        }
+
+        public void OnPostBuscar(string nombre)
+        {
+            MunicipioOptions = new SelectList(_repoMunicipio.GetAllMunicipios(), "Id", "Nombre");
+            MunicipioSelected = -1;
+            if (string.IsNullOrEmpty(nombre))
+            {
+                BusquedaActual = "";
+                equipos = _repoEquipo.GetAllEquipos();
+            }
+            else
+            {
+                BusquedaActual = nombre;
+                equipos = _repoEquipo.SearchEquipos(nombre);
             }
         }
     }
