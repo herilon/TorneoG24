@@ -19,7 +19,7 @@ namespace Torneo.App.Persistencia
                 .Include(m => m.Equipos)
                 .ToList();
 
-return municipios;
+            return municipios;
         }
 
         public Municipio GetMunicipio(int idMunicipio)
